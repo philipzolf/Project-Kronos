@@ -32,19 +32,22 @@ def f_true(u):
             if i == j:
                 continue
             rddot[i] += G*m[j]*(r[j] - r[i])/np.linalg.norm(r[j] - r[i])**3
-    return np.array([v, rddot])
+    udot = np.zeros(u.shape)
+    udot[0] = v
+    udot[1] = rddot
+    return udot
 
-T, dt = 300 * 365 * 24 * 3600, 60*60*24
-# T, dt = 2000, 0.5 
+# T, dt = 300 * 365 * 24 * 3600, 60*60*24*100
+T, dt = 24*60*60*100, 100 
 r0 = np.zeros((3,3))
 r0[0] = [0.0, 0.0, 0.0]
 r0[1] = [-1.22e9, 0.0,0.0]
-r0[2] = [1.22e9 + 1e7, 0.0, 0.0]
+r0[2] = [1.22e9 + 1e9, 0.0, 0.0]
 # print(r0)
 v0 = np.zeros((3,3))
 v0[0] = [0.0, 0.0, 0.0]
-v0[1] = [0.0, -np.sqrt(G*m[1]/np.linalg.norm(r0[1])), 0.0]
-v0[2] = [0.0, np.sqrt(G*m[2]/np.linalg.norm(r0[2])), 0.0]
+v0[1] = [0.0, -np.sqrt(G*m[0]/np.linalg.norm(r0[1])), 0.0]
+v0[2] = [0.0, -np.sqrt(G*m[0]/np.linalg.norm(r0[2])), 0.0]
 
 u0 = np.array([r0, v0])
 u_rk, times = ivp_rk4(u0, T, dt)
@@ -68,7 +71,7 @@ rds = np.array(rds)
 
 ax.scatter(rs[:,0], rs[:,1], rs[:,2], color="yellow")
 ax.scatter(rt[:,0], rt[:,1], rt[:,2], color="blue")
-ax.scatter(rds[:,0], rds[:,1], rds[:,2], color="green")
+ax.scatter(rds[:,0], rds[:,1], rds[:,2], color="black")
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
 ax.set_zlabel('Z')
