@@ -31,6 +31,7 @@ def f_true(u):
         for j in range(0,N):
             if i == j:
                 continue
+            rddot[i] += G*m[j]*(r[j]-r[i])/(np.linalg.norm(r[j]-r[i])**3)
     udot = np.zeros(u.shape)
     udot[0] = v
     udot[1] = rddot
@@ -57,12 +58,14 @@ mDeathStar = 2.24e23
 # mearth = 5.97e24
 mMimas = 3.75e19
 rMimas = 198e6
-m = np.array([mSaturn,mTitan,mDeathStar,mMimas])
+mHyperion = 5.58*1080 # kg
+rHyperion = 1.5e9 # m
+m = np.array([mSaturn,mTitan,mDeathStar,mHyperion])
 r0 = np.zeros((4,3))
 r0[0] = [0.0, 0.0, 0.0]
 r0[1] = [rTitan, 0.0,0.0]
-# r0[2] = [1.22e9*2, 0.0, 0.0]
-r0[3] = [rMimas, 0.0, 0.0]
+r0[2] = [1.22e9*2, 0.0, 0.0]
+r0[3] = [rHyperion, 0.0, 0.0]
 # print(r0)
 v0 = np.zeros((4,3))
 v0[0] = [0.0, 0.0, 0.0]
@@ -96,7 +99,7 @@ r4 = np.array(r4)
 ax.scatter(r1[:,0], r1[:,1], r1[:,2], color="yellow", label="Saturn")
 ax.scatter(r2[:,0], r2[:,1], r2[:,2], color="blue", label="Titan")
 ax.scatter(r3[:,0], r3[:,1], r3[:,2], color="black", label="Death Star")
-ax.scatter(r4[:,0], r4[:,1], r4[:,2], color="cyan", label="Mimas")
+ax.scatter(r4[:,0], r4[:,1], r4[:,2], color="cyan", label="Hyperion")
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
 ax.set_zlabel('Z')
