@@ -83,14 +83,14 @@ mIapetus = 1.806*1021 # kg
 rIapetus = 3.56e9 #m
 mFenrir = 1e13 # kg
 rFenrir = 22.5e9 # m
-m = np.array([mSaturn,mTitan,mDeathStar, mHyperion, mIapetus, mFenrir, rMimas]) # , 
+m = np.array([mSaturn,mTitan,mDeathStar, mHyperion, mIapetus, mFenrir, mMimas]) # , 
 r0 = np.zeros((np.size(m),3))
 r0[0] = [0.0, 0.0, 0.0]
 r0[1] = [rTitan, 0.0,0.0]
 r0[3] = [rHyperion, 0.0, 0.0]
 r0[4] = [rIapetus, 0.0, 0.0]
 r0[5] = [rFenrir, 0.0, 0.0]
-r0[6] = [mMimas, 0.0, 0.0]
+r0[6] = [rMimas, 0.0, 0.0]
 
 rDeathStar = np.max(r0)*2
 r0[2] = [rDeathStar*np.sin(np.pi/4), rDeathStar*np.cos(np.pi/4), 0.0]
